@@ -25,6 +25,8 @@ services:
     ports:
       - "3306:3306"
     restart: always
+    volumes:
+      - ./mysql-init-script:/docker-entrypoint-initdb.d  
     networks:
       - ibs-network
 

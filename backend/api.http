@@ -1,60 +1,80 @@
 ###
-# Criar uma nova pessoa com endereço
+# Login e receber token JWT diretamente
+###
+
+POST http://localhost:3000/auth/login
+Content-Type: application/json
+
+{
+  "username": "erasmo",
+  "password": "3727"
+}
+
+### Adicionar o Token
+@token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImVyYXNtbyIsImlhdCI6MTcxMjg3NzE2MiwiZXhwIjoxNzEyODgwNzYyfQ.k0MAbYlOUgHIBAlLooI5yi7J_YcbhRgNuhNi2PtprzM
+
+
+
+###
+# Criar uma nova pessoa com endereço (com token JWT no cabeçalho)
 ###
 
 POST http://localhost:3000/peoples
 Content-Type: application/json
+Authorization: Bearer {{ token }}
 
 {
-  "name":"João",
-  "sex":"M",
-  "birthDate":"1990-01-01",
-  "maritalStatus":"Solteiro",
-  "addresses":[
+  "name": "João",
+  "sex": "M",
+  "birthDate": "1990-01-01",
+  "maritalStatus": "Solteiro",
+  "addresses": [
     {
-      "cep":"12345-678",
-      "address":"Rua das Flores",
-      "number":"123",
-      "complement":"Apartamento 101",
-      "district":"Centro",
-      "state":"SP",
-      "city":"São Paulo"
+      "cep": "12345-678",
+      "address": "Rua das Flores",
+      "number": "123",
+      "complement": "Apartamento 101",
+      "district": "Centro",
+      "state": "SP",
+      "city": "São Paulo"
     }
   ]
 }
 
-###
-# Listar todas as pessoas
-###
 
+# Listar todas as pessoas (com token JWT no cabeçalho)
+###
 GET http://localhost:3000/peoples
+Authorization: Bearer {{ token }}
+
+###
+# Obter detalhes de uma pessoa específica pelo ID (com token JWT no cabeçalho)
+###
+
+GET http://localhost:3000/peoples/2
+Authorization: Bearer {{ token }}
 
 
 
 ###
-# Obter detalhes de uma pessoa específica pelo ID
-###
-
-GET http://localhost:3000/peoples/1
-
-
-###
-# Atualizar os detalhes de uma pessoa específica pelo ID
+# Atualizar os detalhes de uma pessoa específica pelo ID (com token JWT no cabeçalho)
 ###
 
 PUT http://localhost:3000/peoples/1
 Content-Type: application/json
+Authorization: Bearer {{ token }}
 
 {
   "name": "João da Silva"
 }
 
 ###
-# Adicionar um endereço a uma pessoa específica pelo ID
+# Adicionar um endereço a uma pessoa específica pelo ID (com token JWT no cabeçalho)
 ###
 
 POST http://localhost:3000/peoples/1/addresses
 Content-Type: application/json
+Authorization: Bearer {{ token }}
 
 {
   "cep": "12345-678",
@@ -66,29 +86,29 @@ Content-Type: application/json
   "city": "São Paulo"
 }
 
-
 ###
-# Atualizar os detalhes de um endereço específico de uma pessoa pelo ID da pessoa e pelo ID do endereço
+# Atualizar os detalhes de um endereço específico de uma pessoa pelo ID da pessoa e pelo ID do endereço (com token JWT no cabeçalho)
 ###
 
 PUT http://localhost:3000/peoples/1/addresses/1
 Content-Type: application/json
+Authorization: Bearer {{ token }}
 
 {
   "cep": "54321-876",
   "address": "Avenida das Palmeiras"
 }
 
-
 ###
-# Deletar um endereço específico de uma pessoa pelo ID da pessoa e pelo ID do endereço
+# Deletar um endereço específico de uma pessoa pelo ID da pessoa e pelo ID do endereço (com token JWT no cabeçalho)
 ###
 
 DELETE http://localhost:3000/peoples/1/addresses/1
-
+Authorization: Bearer {{ token }}
 
 ###
-# Deletar uma pessoa específica pelo ID
+# Deletar uma pessoa específica pelo ID (com token JWT no cabeçalho)
 ###
 
 DELETE http://localhost:3000/peoples/1
+Authorization: Bearer {{ token }}

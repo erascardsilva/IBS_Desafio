@@ -15,34 +15,27 @@ export class PeopleService {
   ) {}
 
   async create(peopleData: Partial<People>): Promise<People> {
-    // Verificar se os dados da pessoa estão definidos
     if (!peopleData) {
       throw new Error('Dados da pessoa não fornecidos');
     }
 
-    // Verificar se todos os campos obrigatórios estão presentes
     const { name, sex, birthDate, maritalStatus, addresses } = peopleData;
     if (!name || !sex || !birthDate || !maritalStatus) {
       throw new Error('Todos os campos são obrigatórios');
     }
 
-    // Verificar se o campo 'name' é uma string
     if (typeof name !== 'string') {
       throw new Error('O campo "name" deve ser uma string');
     }
 
-    // Criar a pessoa com os dados fornecidos
     let createdPerson: People;
     await this.sequelize.transaction(async (transaction) => {
-      // Criar a pessoa
       createdPerson = await this.peopleModel.create(
         { name, sex, birthDate, maritalStatus },
         { transaction },
       );
 
-      // Verificar se foram fornecidos endereços
       if (addresses && addresses.length > 0) {
-        // Criar cada endereço associado à pessoa
         for (const addressData of addresses) {
           await this.addressModel.create(
             { ...addressData, peopleId: createdPerson.id },

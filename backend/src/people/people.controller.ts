@@ -8,7 +8,9 @@ import {
   Body,
   HttpException,
   HttpStatus,
+  UseGuards,
 } from '@nestjs/common';
+import { JwtAuthGuard } from '../controller/auth.guard';
 import { People } from './people.entity';
 import { PeopleService } from './people.service';
 import { Address } from '../address/address.entity';
@@ -18,16 +20,19 @@ export class PeopleController {
   constructor(private readonly peopleService: PeopleService) {}
 
   @Get()
+  @UseGuards(JwtAuthGuard)
   async findAll(): Promise<People[]> {
     return this.peopleService.findAll();
   }
 
   @Get(':id')
+  @UseGuards(JwtAuthGuard)
   async findById(@Param('id') id: string): Promise<People | null> {
     return this.peopleService.findById(+id);
   }
 
   @Post()
+  @UseGuards(JwtAuthGuard)
   async create(@Body() peopleData: Partial<People>): Promise<People> {
     try {
       const createdPerson = await this.peopleService.create(peopleData);
@@ -41,6 +46,7 @@ export class PeopleController {
   }
 
   @Put(':id')
+  @UseGuards(JwtAuthGuard)
   async update(
     @Param('id') id: string,
     @Body() peopleData: Partial<People>,
@@ -49,11 +55,13 @@ export class PeopleController {
   }
 
   @Delete(':id')
+  @UseGuards(JwtAuthGuard)
   async delete(@Param('id') id: string): Promise<void> {
     return this.peopleService.delete(+id);
   }
 
   @Post(':id/addresses')
+  @UseGuards(JwtAuthGuard)
   async addAddressToPeople(
     @Param('id') id: string,
     @Body() addressData: Partial<Address>,
@@ -62,6 +70,7 @@ export class PeopleController {
   }
 
   @Put(':id/addresses/:addressId')
+  @UseGuards(JwtAuthGuard)
   async updateAddress(
     @Param('id') id: string,
     @Param('addressId') addressId: string,
@@ -71,6 +80,7 @@ export class PeopleController {
   }
 
   @Delete(':id/addresses/:addressId')
+  @UseGuards(JwtAuthGuard)
   async removeAddressFromPeople(
     @Param('id') id: string,
     @Param('addressId') addressId: string,
