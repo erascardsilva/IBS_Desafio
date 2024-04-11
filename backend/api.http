@@ -1,0 +1,94 @@
+###
+# Criar uma nova pessoa com endereço
+###
+
+POST http://localhost:3000/peoples
+Content-Type: application/json
+
+{
+  "name":"João",
+  "sex":"M",
+  "birthDate":"1990-01-01",
+  "maritalStatus":"Solteiro",
+  "addresses":[
+    {
+      "cep":"12345-678",
+      "address":"Rua das Flores",
+      "number":"123",
+      "complement":"Apartamento 101",
+      "district":"Centro",
+      "state":"SP",
+      "city":"São Paulo"
+    }
+  ]
+}
+
+###
+# Listar todas as pessoas
+###
+
+GET http://localhost:3000/peoples
+
+
+
+###
+# Obter detalhes de uma pessoa específica pelo ID
+###
+
+GET http://localhost:3000/peoples/1
+
+
+###
+# Atualizar os detalhes de uma pessoa específica pelo ID
+###
+
+PUT http://localhost:3000/peoples/1
+Content-Type: application/json
+
+{
+  "name": "João da Silva"
+}
+
+###
+# Adicionar um endereço a uma pessoa específica pelo ID
+###
+
+POST http://localhost:3000/peoples/1/addresses
+Content-Type: application/json
+
+{
+  "cep": "12345-678",
+  "address": "Rua das Flores",
+  "number": "123",
+  "complement": "Apartamento 101",
+  "district": "Centro",
+  "state": "SP",
+  "city": "São Paulo"
+}
+
+
+###
+# Atualizar os detalhes de um endereço específico de uma pessoa pelo ID da pessoa e pelo ID do endereço
+###
+
+PUT http://localhost:3000/peoples/1/addresses/1
+Content-Type: application/json
+
+{
+  "cep": "54321-876",
+  "address": "Avenida das Palmeiras"
+}
+
+
+###
+# Deletar um endereço específico de uma pessoa pelo ID da pessoa e pelo ID do endereço
+###
+
+DELETE http://localhost:3000/peoples/1/addresses/1
+
+
+###
+# Deletar uma pessoa específica pelo ID
+###
+
+DELETE http://localhost:3000/peoples/1

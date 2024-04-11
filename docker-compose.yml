@@ -1,0 +1,44 @@
+version: '3.7'
+
+services:
+  backend:
+    build: ./backend
+    ports:
+      - "3000:3000"
+    environment:
+      - NODE_ENV=development
+    depends_on:
+      - mysql
+    volumes:
+      - ./backend:/app
+      - /app/node_modules
+    networks:
+      - ibs-network
+
+  mysql:
+    image: mysql:latest
+    environment:
+      MYSQL_ROOT_PASSWORD: 3727
+      MYSQL_DATABASE: IBS_SISTEMAS
+      MYSQL_USER: erasmo
+      MYSQL_PASSWORD: 3727
+    ports:
+      - "3306:3306"
+    restart: always
+    networks:
+      - ibs-network
+
+  frontend:  
+    build: ./frontend
+    ports:
+      - "4200:4200"
+    environment:
+      - NODE_ENV=development
+    volumes:
+      - ./frontend:/app
+      - /app/node_modules
+    networks:
+      - ibs-network
+
+networks:
+  ibs-network:
