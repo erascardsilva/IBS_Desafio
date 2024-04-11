@@ -1,20 +1,6 @@
 version: '3.7'
 
 services:
-  backend:
-    build: ./backend
-    ports:
-      - "3000:3000"
-    environment:
-      - NODE_ENV=development
-    depends_on:
-      - mysql
-    volumes:
-      - ./backend:/app
-      - /app/node_modules
-    networks:
-      - ibs-network
-
   mysql:
     image: mysql:latest
     environment:
@@ -27,6 +13,20 @@ services:
     restart: always
     volumes:
       - ./mysql-init-script:/docker-entrypoint-initdb.d  
+    networks:
+      - ibs-network
+
+  backend:
+    build: ./backend
+    ports:
+      - "3000:3000"
+    environment:
+      - NODE_ENV=development
+    depends_on:
+      - mysql
+    volumes:
+      - ./backend:/app
+      - /app/node_modules
     networks:
       - ibs-network
 
