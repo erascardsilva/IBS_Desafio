@@ -14,81 +14,17 @@ export class PeopleService {
     private readonly sequelize: Sequelize,
   ) {}
 
-  async create(peopleData: Partial<People>): Promise<People> {
-    if (!peopleData) {
-      throw new Error('Dados da pessoa não fornecidos');
-    }
-
-    const { name, sex, birthDate, maritalStatus, addresses } = peopleData;
-    if (!name || !sex || !birthDate || !maritalStatus) {
-      throw new Error('Todos os campos são obrigatórios');
-    }
-
-    if (typeof name !== 'string') {
-      throw new Error('O campo "name" deve ser uma string');
-    }
-
-    let createdPerson: People;
-    await this.sequelize.transaction(async (transaction) => {
-      createdPerson = await this.peopleModel.create(
-        { name, sex, birthDate, maritalStatus },
-        { transaction },
-      );
-
-      if (addresses && addresses.length > 0) {
-        for (const addressData of addresses) {
-          await this.addressModel.create(
-            { ...addressData, peopleId: createdPerson.id },
-            { transaction },
-          );
-        }
-      }
-    });
-
-    return createdPerson;
+  async create(peopleData: Partial<People>): Promise<any> {
+    const createdPerson = await this.peopleModel.create(peopleData);
+    const message = this.generateBirthdayMessage(createdPerson);
+    return { ...createdPerson.toJSON(), message };
   }
+
   async findAll(): Promise<any[]> {
     const people = await this.peopleModel.findAll({ include: [Address] });
-
-    // mensagem para cada usuario
-    const peopleWithMessages = people.map((person) => {
-      const today = new Date();
-      const birthday = new Date(person.birthDate);
-      const age = today.getFullYear() - birthday.getFullYear();
-
-      birthday.setFullYear(today.getFullYear()); // Define o ano de aniversário para o ano atual
-
-      // Verifica se é o dia do aniversário
-      if (
-        birthday.getMonth() === today.getMonth() &&
-        birthday.getDate() === today.getDate()
-      ) {
-        // Se for o aniversario do usuario fica avisado
-        return {
-          ...person.toJSON(),
-          message: ` De parabéns ao usuario ${person.name} hoje ele faz ${age} anos.`,
-        };
-      } else {
-        // Calcula quantos dias faltam para o próximo aniversário
-        let differenceInDays = Math.floor(
-          (birthday.getTime() - today.getTime()) / (1000 * 60 * 60 * 24),
-        );
-
-        // calcula dias para o próximo aniversario
-        if (differenceInDays < 0) {
-          birthday.setFullYear(today.getFullYear() + 1);
-          differenceInDays = Math.floor(
-            (birthday.getTime() - today.getTime()) / (1000 * 60 * 60 * 24),
-          );
-        }
-
-        return {
-          ...person.toJSON(),
-          message: `Faltam ${differenceInDays} dias para o aniversário do usuario ${person.name}.`,
-        };
-      }
-    });
-
+    const peopleWithMessages = people.map((person) =>
+      this.generatePersonMessage(person),
+    );
     return peopleWithMessages;
   }
 
@@ -155,5 +91,85 @@ export class PeopleService {
       throw new NotFoundException('Endereço não encontrado para esta pessoa');
     }
     await address.destroy();
+  }
+
+  // Terei que comentar toda esta parte rsrsr
+  private generateBirthdayMessage(person: People): string {
+    const today = new Date();
+    const birthday = new Date(person.birthDate);
+    birthday.setFullYear(today.getFullYear()); // Define o ano de aniversário para o ano atual
+
+    // Se o aniversário já passou este ano, calcula para o próximo ano
+    if (today.getTime() > birthday.getTime()) {
+      birthday.setFullYear(today.getFullYear() + 1); // Próximo ano
+    }
+
+    // Calcula a diferença em milissegundos
+    const birtd = birthday.getTime() + 1;
+    const differenceInMilliseconds = birtd - today.getTime();
+
+    // Converte a diferença para dias
+    const differenceInDays = Math.ceil(
+      differenceInMilliseconds / (1000 * 60 * 60 * 24),
+    );
+
+    if (differenceInDays === 365) {
+      return `Parabéns, ${person.name}! Hoje é seu aniversário.`;
+    } else {
+      return `Faltam ${differenceInDays} dias para o aniversário de ${person.name}.`;
+    }
+  }
+
+  private generatePersonMessage(person: People): any {
+    const today = new Date();
+    const birthday = new Date(person.birthDate);
+    let age = this.calculateAge(birthday, today);
+    // Define o ano de aniversário para o ano atual
+    birthday.setFullYear(today.getFullYear());
+
+    if (
+      birthday.getMonth() === today.getMonth() &&
+      birthday.getDate() === today.getDate()
+    ) {
+      return {
+        ...person.toJSON(),
+        message: `Parabéns, ${person.name}! Hoje é seu aniversário. Você tem ${age} anos.`,
+      };
+    }
+
+    // Se o aniversário já passou este ano, calcula para o próximo ano
+    if (today.getTime() > birthday.getTime()) {
+      birthday.setFullYear(today.getFullYear() + 1);
+    }
+
+    // Calcula a diferença em dias
+    let differenceInDays = Math.floor(
+      (birthday.getTime() - today.getTime()) / (1000 * 60 * 60 * 24),
+    );
+
+    // Se o aniversário for hoje, ajusta a mensagem para incluir a idade correta
+    if (differenceInDays === 0) {
+      differenceInDays = 365; // O aniversário é hoje, então a diferença é de um ano
+      age++; // Incrementa a idade
+    }
+
+    return {
+      ...person.toJSON(),
+      message: `Faltam ${differenceInDays} dias para o aniversário de ${person.name}. Você tem ${age} anos.`,
+    };
+  }
+
+  private calculateAge(birthDate: Date, currentDate: Date): number {
+    const yearsDiff = currentDate.getFullYear() - birthDate.getFullYear();
+    const birthMonth = birthDate.getMonth();
+    const currentMonth = currentDate.getMonth();
+    if (
+      currentMonth < birthMonth ||
+      (currentMonth === birthMonth &&
+        currentDate.getDate() < birthDate.getDate())
+    ) {
+      return yearsDiff - 1;
+    }
+    return yearsDiff;
   }
 }
