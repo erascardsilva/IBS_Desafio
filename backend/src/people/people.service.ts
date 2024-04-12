@@ -113,10 +113,13 @@ export class PeopleService {
       differenceInMilliseconds / (1000 * 60 * 60 * 24),
     );
 
+    // Calcula a idade
+    const age = this.calculateAge(new Date(person.birthDate), today);
+
     if (differenceInDays === 365) {
-      return `Parabéns, ${person.name}! Hoje é seu aniversário.`;
+      return `Hoje é aniversário de ${person.name}, ele tem tem ${age} anos.`;
     } else {
-      return `Faltam ${differenceInDays} dias para o aniversário de ${person.name}.`;
+      return `Faltam ${differenceInDays} dias para o aniversário de ${person.name}. Você tem ${age} anos.`;
     }
   }
 
@@ -133,7 +136,7 @@ export class PeopleService {
     ) {
       return {
         ...person.toJSON(),
-        message: `Parabéns, ${person.name}! Hoje é seu aniversário. Você tem ${age} anos.`,
+        message: `Hoje é aniversário de ${person.name}, ele tem tem ${age} anos.`,
       };
     }
 
@@ -143,9 +146,17 @@ export class PeopleService {
     }
 
     // Calcula a diferença em dias
-    let differenceInDays = Math.floor(
-      (birthday.getTime() - today.getTime()) / (1000 * 60 * 60 * 24),
-    );
+    let differenceInDays;
+    if (today.getTime() < birthday.getTime()) {
+      differenceInDays = Math.ceil(
+        (birthday.getTime() - today.getTime()) / (1000 * 60 * 60 * 24),
+      );
+    } else {
+      birthday.setFullYear(today.getFullYear() + 1);
+      differenceInDays = Math.ceil(
+        (birthday.getTime() - today.getTime()) / (1000 * 60 * 60 * 24),
+      );
+    }
 
     // Se o aniversário for hoje, ajusta a mensagem para incluir a idade correta
     if (differenceInDays === 0) {
@@ -155,21 +166,18 @@ export class PeopleService {
 
     return {
       ...person.toJSON(),
-      message: `Faltam ${differenceInDays} dias para o aniversário de ${person.name}. Você tem ${age} anos.`,
+      message: `Faltam ${differenceInDays} dias para o aniversário de ${person.name}. Ele tem ${age} anos.`,
     };
   }
 
   private calculateAge(birthDate: Date, currentDate: Date): number {
-    const yearsDiff = currentDate.getFullYear() - birthDate.getFullYear();
-    const birthMonth = birthDate.getMonth();
-    const currentMonth = currentDate.getMonth();
-    if (
-      currentMonth < birthMonth ||
-      (currentMonth === birthMonth &&
-        currentDate.getDate() < birthDate.getDate())
-    ) {
-      return yearsDiff - 1;
-    }
+    const millisecondsInDay = 1000 * 60 * 60 * 24;
+    const ageInMilliseconds = Math.abs(
+      currentDate.getTime() - birthDate.getTime(),
+    );
+    const yearsDiff = Math.floor(
+      ageInMilliseconds / (millisecondsInDay * 365.25),
+    );
     return yearsDiff;
   }
 }
