@@ -47,9 +47,49 @@ export class PeopleService {
 
     return createdPerson;
   }
+  async findAll(): Promise<any[]> {
+    const people = await this.peopleModel.findAll({ include: [Address] });
 
-  async findAll(): Promise<People[]> {
-    return this.peopleModel.findAll({ include: [Address] });
+    // mensagem para cada usuario
+    const peopleWithMessages = people.map((person) => {
+      const today = new Date();
+      const birthday = new Date(person.birthDate);
+      const age = today.getFullYear() - birthday.getFullYear();
+
+      birthday.setFullYear(today.getFullYear()); // Define o ano de aniversário para o ano atual
+
+      // Verifica se é o dia do aniversário
+      if (
+        birthday.getMonth() === today.getMonth() &&
+        birthday.getDate() === today.getDate()
+      ) {
+        // Se for o aniversario do usuario fica avisado
+        return {
+          ...person.toJSON(),
+          message: ` De parabéns ao usuario ${person.name} hoje ele faz ${age} anos.`,
+        };
+      } else {
+        // Calcula quantos dias faltam para o próximo aniversário
+        let differenceInDays = Math.floor(
+          (birthday.getTime() - today.getTime()) / (1000 * 60 * 60 * 24),
+        );
+
+        // calcula dias para o próximo aniversario
+        if (differenceInDays < 0) {
+          birthday.setFullYear(today.getFullYear() + 1);
+          differenceInDays = Math.floor(
+            (birthday.getTime() - today.getTime()) / (1000 * 60 * 60 * 24),
+          );
+        }
+
+        return {
+          ...person.toJSON(),
+          message: `Faltam ${differenceInDays} dias para o aniversário do usuario ${person.name}.`,
+        };
+      }
+    });
+
+    return peopleWithMessages;
   }
 
   async findById(id: number): Promise<People | null> {
