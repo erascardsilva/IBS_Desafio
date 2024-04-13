@@ -11,7 +11,7 @@ Content-Type: application/json
 }
 
 ### Adicionar o Token
-@token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImVyYXNtbyIsImlhdCI6MTcxMjg5OTQ5NywiZXhwIjoxNzEyOTAzMDk3fQ.9ZW32FpFn_0-xg-ZYJXFnqTeXiaQfy7eRKDup4HNoTU
+@token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImVyYXNtbyIsImlhdCI6MTcxMjk1MjUzNywiZXhwIjoxNzEyOTU2MTM3fQ.gZVUrkiPO-dwkneYo8liH-NtqbmHFUpVbE-dTHrRpEg
 
 
 
@@ -26,7 +26,7 @@ Authorization: Bearer {{ token }}
 {
   "name": "João",
   "sex": "M",
-  "birthDate": "1975-04-13",
+  "birthDate": "1975-04-12",
   "maritalStatus": "Solteiro",
   "addresses": [
     {
@@ -38,7 +38,9 @@ Authorization: Bearer {{ token }}
       "state": "SP",
       "city": "São Paulo"
     }
+   
   ]
+  
 }
 
 

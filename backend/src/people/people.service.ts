@@ -15,8 +15,24 @@ export class PeopleService {
   ) {}
 
   async create(peopleData: Partial<People>): Promise<any> {
+    // Criar a pessoa
     const createdPerson = await this.peopleModel.create(peopleData);
+
+    // Verificar se foram fornecidos endereços
+    if (peopleData.addresses && peopleData.addresses.length > 0) {
+      // Criar os endereços e associá-los à pessoa
+      const addresses = await Promise.all(
+        peopleData.addresses.map((addressData) =>
+          this.addressModel.create(addressData),
+        ),
+      );
+      await createdPerson.$set('addresses', addresses);
+    }
+
+    // Gerar a mensagem de aniversário
     const message = this.generateBirthdayMessage(createdPerson);
+
+    // Retornar a pessoa criada junto com a mensagem
     return { ...createdPerson.toJSON(), message };
   }
 
@@ -93,7 +109,6 @@ export class PeopleService {
     await address.destroy();
   }
 
-  // Terei que comentar toda esta parte rsrsr
   private generateBirthdayMessage(person: People): string {
     const today = new Date();
     const birthday = new Date(person.birthDate);
