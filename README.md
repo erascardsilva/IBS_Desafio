@@ -34,7 +34,7 @@ Este projeto utiliza Docker Compose para orquestrar os containers. Os serviços 
 Para iniciar os serviços, execute o seguinte comando na raiz do projeto:
 
 ```bash
-docker-compose up
+docker-compose up --build
 ```
 
 ### Estrutura Banco de dados mysql 
