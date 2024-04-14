@@ -106,5 +106,5 @@ CREATE TABLE IF NOT EXISTS Address (
 Após iniciar os serviços, o front-end estará disponível no endereço:
 http://localhost:4200
 
-![image](https://github.com/erascardsilva/IBS_Desafio/assets/70297459/bb0dadbd-f0dd-4425-bae4-c7b8b1f0bfcf)
+<img width = "600px" src=https://github.com/erascardsilva/IBS_Desafio/assets/70297459/bb0dadbd-f0dd-4425-bae4-c7b8b1f0bfcf)>
 
