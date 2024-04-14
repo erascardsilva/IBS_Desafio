@@ -40,11 +40,7 @@ function Header() {
                                 <i className="bi bi-house-door bi-lg"></i>
                             </a>
                         </li>
-                        <li className="nav-item">
-                            <a href="/dashboard" className="nav-link me-3">
-                                <i className="bi bi-list bi-lg"></i>
-                            </a>
-                        </li>
+                        
                         <li className="nav-item">
                             <a
                                 href="https://github.com/erascardsilva/IBS_Desafio"
