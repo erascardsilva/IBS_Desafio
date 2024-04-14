@@ -1,0 +1,26 @@
+.navbar {
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); 
+}
+
+.navbar-brand {
+  height: 60px;
+  display: flex;
+  align-items: center;
+  color: #343a40; 
+  font-weight: bold; 
+}
+
+.navbar-toggler {
+  border: none;
+}
+
+.navbar-nav .nav-link {
+  color: #343a40;
+  font-weight: 500; 
+}
+
+.navbar-nav .nav-link:hover {
+  background-color: #f8f9fa; 
+}

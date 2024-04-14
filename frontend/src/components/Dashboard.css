@@ -1,0 +1,4 @@
+.nav-item:hover .nav-link {
+    background-color: #007bff; /* Azul escuro */
+    color: white; /* Texto branco */
+}

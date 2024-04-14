@@ -31,7 +31,9 @@ services:
       - ibs-network
 
   frontend:  
-    build: ./frontend
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
     ports:
       - "4200:4200"
     environment:

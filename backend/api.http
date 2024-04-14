@@ -11,7 +11,7 @@ Content-Type: application/json
 }
 
 ### Adicionar o Token
-@token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImVyYXNtbyIsImlhdCI6MTcxMjk1MjUzNywiZXhwIjoxNzEyOTU2MTM3fQ.gZVUrkiPO-dwkneYo8liH-NtqbmHFUpVbE-dTHrRpEg
+@token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImVyYXNtbyIsImlhdCI6MTcxMzA2MzU5NywiZXhwIjoxNzEzMDY3MTk3fQ.lJpDGw8yOjlAR5p-IZrvtLzeDpgQYvCur3G8TGnzWLk
 
 
 
