@@ -25,7 +25,7 @@ Para executar este projeto localmente, é necessário ter o Docker e o Docker Co
 
 Este projeto utiliza Docker Compose para orquestrar os containers. Os serviços incluem:
 
-- **MySQL**: Container com MySQL rodando na porta 3600.
+- **MySQL**: Container com MySQL rodando na porta 3306.
 - **Backend NestJS**: Container com o backend rodando na porta 3000.
 - **Frontend React**: Container com o frontend rodando na porta 4200.
 
