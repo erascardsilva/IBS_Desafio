@@ -19,7 +19,7 @@ Para executar este projeto localmente, é necessário ter o Docker e o Docker Co
 - **Framework NestJS**: Utilização do framework NestJS no back-end.
 - **Framework React**: Utilização do framework React no front-end.
 - **Paginação e Busca**: Suporte à paginação e mecanismo de busca na listagem de pessoas.
-- **Autenticação e Autorização**: Sistema de autenticação de usuários para acesso à API e front-end.
+- **Autenticação e Autorização**: Sistema de autenticação de usuários para acesso à API .
 
 ## Docker Compose
 
