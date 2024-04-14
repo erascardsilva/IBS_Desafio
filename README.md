@@ -1,4 +1,4 @@
-#.      IBS Desafio
+# IBS Desafio
 # Gerenciador de Pessoas e Endereços
 
 Um sistema completo para gerenciamento de pessoas e seus endereços, desenvolvido em Node.js e React. Esta aplicação permite realizar operações CRUD em registros de pessoas, incluindo detalhes como nome, sexo, data de nascimento, estado civil e múltiplos endereços.
