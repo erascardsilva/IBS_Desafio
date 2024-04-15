@@ -108,10 +108,45 @@ Após iniciar os serviços, o front-end estará disponível no endereço:
 http://localhost:4200
 
 <img width = "600px" src=https://github.com/erascardsilva/IBS_Desafio/assets/70297459/35a84e03-2f8c-4c9b-9ae6-a1754579235d>
+
 Login deve ser efetuado com usuario padrao do projeto User = erasmo  senha = 3727
 
 <img width = "600px" src=https://github.com/erascardsilva/IBS_Desafio/assets/70297459/7f62f641-5e4e-41a6-a825-6a0c74c96658>
+
 Tela Dashboard acesso a operações Criar | Editar | Listar | Apagar
+
+<img width = "600px" src=https://github.com/erascardsilva/IBS_Desafio/assets/70297459/fd619d59-4e82-4d23-951d-035063a531ba>
+
+Cadastro de Usuario e Endereço
+
+<img width = "600px" src=https://github.com/erascardsilva/IBS_Desafio/assets/70297459/35364d3a-fc6b-4286-9f15-381d140f34aa>
+
+Ao cadastrar mensagem retornando a idade e calculo de dias para o aniversario
+
+<img width = "600px" src=https://github.com/erascardsilva/IBS_Desafio/assets/70297459/17791720-0b95-45b2-9ca7-28510b3f1c11>
+
+Tela de busca com botoes de editar e apagar o usuario, imoveis sao mostrados na quantidade que o usuario tiver .
+
+<img width = "600px" src=https://github.com/erascardsilva/IBS_Desafio/assets/70297459/fd3ff01f-1925-443f-ba2b-4b3657fa05ac>
+
+Edita usuario inclui um endereço, edita endereço e apaga um endereço
+
+<img width = "600px" src=https://github.com/erascardsilva/IBS_Desafio/assets/70297459/5055c7a6-cd3b-4f34-bf5b-3d62e87d9878>
+
+Tela que adiciona um novo endereço
+
+<img width = "600px" src=https://github.com/erascardsilva/IBS_Desafio/assets/70297459/6f4c34e9-e419-4eed-8e23-b644c629c65c>
+
+Atualiza um endereço
+
+
+
+
+
+
+
+
+
 
 
 
