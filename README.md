@@ -74,8 +74,12 @@ Dependencia MYSQL
 
 ### Rotas Autenticação e Token JWT
 
+Uso e acesso permitidos com validade do token ao espirar o token necessario novo login.
+
 - **Login e Receber Token JWT**
   - `POST http://localhost:3000/auth/login`
+  - Usuario : erasmo
+  - senha : 3727
 
 ### CRUD de Pessoas e Endereços
 
