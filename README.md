@@ -107,5 +107,11 @@ CREATE TABLE IF NOT EXISTS Address (
 Após iniciar os serviços, o front-end estará disponível no endereço:
 http://localhost:4200
 
-<img width = "600px" src=https://github.com/erascardsilva/IBS_Desafio/assets/70297459/bb0dadbd-f0dd-4425-bae4-c7b8b1f0bfcf)>
+<img width = "600px" src=https://github.com/erascardsilva/IBS_Desafio/assets/70297459/35a84e03-2f8c-4c9b-9ae6-a1754579235d>
+Login deve ser efetuado com usuario padrao do projeto User = erasmo  senha = 3727
+
+<img width = "600px" src=https://github.com/erascardsilva/IBS_Desafio/assets/70297459/7f62f641-5e4e-41a6-a825-6a0c74c96658>
+Tela Dashboard acesso a operações Criar | Editar | Listar | Apagar
+
+
 
