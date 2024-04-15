@@ -30,7 +30,7 @@ Este projeto utiliza Docker Compose para orquestrar os containers. Os serviços 
 - **Backend NestJS**: Container com o backend rodando na porta 3000.
 - **Frontend React**: Container com o frontend rodando na porta 4200.
 
-### Iniciar os Serviços
+### Iniciar os Serviços Docker
 
 Para iniciar os serviços, execute o seguinte comando na raiz do projeto:
 
@@ -38,8 +38,9 @@ Para iniciar os serviços, execute o seguinte comando na raiz do projeto:
 docker-compose up --build
 ```
 
-### Estrutura Banco de dados mysql 
-Que é montada automaticamente em um container 
+### Estrutura Banco de dados MYSQL
+
+Estrutura montada automaticamente em um container 
 ```bash
 
 CREATE DATABASE IF NOT EXISTS IBS_SISTEMAS;
@@ -66,9 +67,12 @@ CREATE TABLE IF NOT EXISTS Address (
     city VARCHAR(100) NOT NULL,
     FOREIGN KEY (people_id) REFERENCES people(id) ON DELETE CASCADE
 ```
-## Rotas do Backend
+##  Backend
+Nestjs - segurança JWT
+porta 3000
+Dependencia MYSQL
 
-### Autenticação e Token JWT
+### Rotas Autenticação e Token JWT
 
 - **Login e Receber Token JWT**
   - `POST http://localhost:3000/auth/login`
@@ -102,10 +106,15 @@ CREATE TABLE IF NOT EXISTS Address (
 - **Deletar Uma Pessoa Específica**
   - `DELETE http://localhost:3000/peoples/:id`
 
-### Acessar o Front-end
+###  Front-end
+React *
+porta 4200
+Dependecia Backend
 
 Após iniciar os serviços, o front-end estará disponível no endereço:
+```bash
 http://localhost:4200
+```
 
 <img width = "600px" src=https://github.com/erascardsilva/IBS_Desafio/assets/70297459/35a84e03-2f8c-4c9b-9ae6-a1754579235d>
 
